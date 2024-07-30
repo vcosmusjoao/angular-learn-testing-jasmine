@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.sass']
 })
 export class AppComponent {
-  title = 'angular-learn-unit-testing';
+  btnTitle = 'Subscribe';
+  isSubscribed:boolean=false;
+
+  subscribe(){
+    this.isSubscribed= true;
+    this.btnTitle= "Subscribed";
+  }
 }

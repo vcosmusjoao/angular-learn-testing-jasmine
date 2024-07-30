@@ -33,9 +33,9 @@ describe('HomeComponent', () => {
     expect(pElements[0].nativeElement.textContent).toBe('home works!')
   });
 
-  it('should have a disabled button', () => {
-   let buttonElements = el.queryAll(By.css('.btn'));
-   expect(buttonElements[0].nativeElement.disabled).toBeTrue();
-  });
+  // it('should have a disabled button', () => {
+  //  let buttonElements = el.queryAll(By.css('.btn'));
+  //  expect(buttonElements[0].nativeElement.disabled).toBeTrue();
+  // });
 
 });

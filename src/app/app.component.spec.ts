@@ -1,14 +1,28 @@
-import { TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { DebugElement } from '@angular/core';
+import { By } from '@angular/platform-browser';
 
 describe('AppComponent', () => {
+ 
+  let component: AppComponent;
+  let fixture: ComponentFixture<AppComponent>;
+  let el: DebugElement;
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [
-        AppComponent
-      ],
-    }).compileComponents();
+      declarations: [ AppComponent ]
+    })
+    .compileComponents();
   });
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
+    el = fixture.debugElement;
+    fixture.detectChanges();
+  });
+  
 
   it('should create the app', () => {
     const fixture = TestBed.createComponent(AppComponent);
@@ -16,16 +30,26 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'angular-learn-unit-testing'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('angular-learn-unit-testing');
+
+  it('should have a button with title Subscribe and disabled false', () => {
+    let buttonElements = el.queryAll(By.css('.btn'));
+    component.btnTitle= "Subscribe";
+    component.isSubscribed = false;
+    fixture.detectChanges();
+
+    expect(buttonElements[0].nativeElement.textContent).toBe("Subscribe");
+    expect(buttonElements[0].nativeElement.disabled).toBeFalse();
+  });
+  
+  
+  it('should have a button with title Subscribed when clicked and disabled true', () => {
+    let buttonElements = el.queryAll(By.css('.btn'));
+    component.btnTitle= "Subscribed";
+    component.isSubscribed = true;
+    buttonElements[0].nativeElement.click();
+    fixture.detectChanges();
+    expect(buttonElements[0].nativeElement.textContent).toBe("Subscribed");
+    expect(buttonElements[0].nativeElement.disabled).toBeTrue();
   });
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('angular-learn-unit-testing app is running!');
-  });
 });
